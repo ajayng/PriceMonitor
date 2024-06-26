@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Twilio credentials (replace with your own)
 account_sid = 'AC05136ad9c326713a1cf44ead0277afb0'
-auth_token = '4134f029a1005475f408a2aa8af8cbbf'
+auth_token = '23102a362d7def7506f331470791d8b0'
 twilio_phone_number = '+14155238886'
 destination_phone_number = '+917002743716'
 
@@ -169,7 +169,7 @@ def monitor_prices(products):
                     logging.info(f"Price alert condition met for product: {product_url}")
                 else:
                     logging.info(f"Price alert condition not met for product: {product_url}")
-            sleep(10)  # Check every 6 hours (21600 seconds)
+            sleep(10)  # Check every 10 seconds for testing; change to 21600 for 6 hours
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
 
@@ -197,3 +197,4 @@ def submit():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
