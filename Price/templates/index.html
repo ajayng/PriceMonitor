@@ -1,68 +1,31 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Price Monitoring</title>
+    <title>Upload Excel File</title>
 </head>
 <body>
-    <h1>Price Monitoring</h1>
-    <form id="priceForm">
-        <div id="products">
-            <div class="product">
-                <label for="url">URL:</label>
-                <input type="text" name="url1" required>
-                <label for="class_name">Class Name:</label>
-                <input type="text" name="class_name1" required>
-                <label for="price">Target Price:</label>
-                <input type="number" step="0.01" name="price1" required>
-            </div>
-        </div>
-        <button type="button" onclick="addProduct()">Add Product</button>
-        <button type="submit">Submit</button>
+    <h1>Upload Excel File</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="excelFile" name="excelFile" accept=".xls,.xlsx" required>
+        <button type="submit">Upload File</button>
     </form>
 
     <script>
-        function addProduct() {
-            const productsDiv = document.getElementById('products');
-            const productCount = productsDiv.querySelectorAll('.product').length + 1;
+        const form = document.getElementById('uploadForm');
 
-            const newProduct = document.createElement('div');
-            newProduct.classList.add('product');
-            newProduct.innerHTML = `
-                <label for="url">URL:</label>
-                <input type="text" name="url${productCount}" required>
-                <label for="class_name">Class Name:</label>
-                <input type="text" name="class_name${productCount}" required>
-                <label for="price">Target Price:</label>
-                <input type="number" step="0.01" name="price${productCount}" required>
-            `;
-            productsDiv.appendChild(newProduct);
-        }
-
-        const form = document.getElementById('priceForm');
         form.addEventListener('submit', async function(event) {
             event.preventDefault();
             const formData = new FormData(form);
             const response = await fetch('/submit', {
                 method: 'POST',
-                body: formDataToJSON(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                body: formData
             });
             const result = await response.json();
             alert(result.message);
         });
-
-        function formDataToJSON(formData) {
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            return JSON.stringify(data);
-        }
     </script>
 </body>
 </html>
+
