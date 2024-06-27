@@ -1,17 +1,18 @@
 from flask import Flask, request, jsonify, render_template
+import pandas as pd
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+from threading import Thread
+from time import sleep
+from twilio.rest import Client
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
-from twilio.rest import Client
-import logging
-from time import sleep
-from threading import Thread
-from datetime import datetime
-from googleapiclient.discovery import build
-from google.oauth2.service_account import Credentials
 
 app = Flask(__name__)
 
 # Configure logging
+import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Twilio credentials (replace with your own)
@@ -22,7 +23,6 @@ destination_phone_number = '+917002743716'
 
 # Initialize Twilio client
 client = Client(account_sid, auth_token)
-
 # Google Sheets API setup
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SHEET_ID = '1PRIZwO6eG3aZtniP8AY_7ZCa5B0HxuJKb3EOi2leNUU'  # Replace with your Google Sheet ID
@@ -38,7 +38,6 @@ def generate_sheet_name(product_url):
         soup = BeautifulSoup(page_content, 'html.parser')
         name_tag = soup.find('span', class_='VU-ZEz')
 
-        # Ensure name_tag is not None before accessing its text attribute
         if name_tag:
             sheet_name = name_tag.text[:10]  # Get the first 10 characters
         else:
@@ -126,6 +125,7 @@ def extract_price(page_content, class_name):
     return None
 
 def send_whatsapp_message(message):
+    # Replace with your Twilio implementation
     try:
         message = client.messages.create(
             body=message,
@@ -155,7 +155,6 @@ def check_price_and_alert(product_url, target_price, class_name):
 
     if current_price <= target_price:
         message = f"Price alert! Price for {product_url} has reached the target price of ₹{target_price}. Current price is ₹{current_price}."
-        logging.info(f"Sending WhatsApp message: {message}")  # Log the message before sending
         send_whatsapp_message(message)
         return True
 
@@ -169,7 +168,7 @@ def monitor_prices(products):
                     logging.info(f"Price alert condition met for product: {product_url}")
                 else:
                     logging.info(f"Price alert condition not met for product: {product_url}")
-            sleep(10)  # Check every 10 seconds for testing; change to 21600 for 6 hours
+            sleep(60)  # Check every 10 seconds for testing; change to 21600 for 6 hours
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
 
@@ -179,22 +178,32 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = request.json
-    products = {}
-    for key, value in data.items():
-        if 'url' in key:
-            product_id = key.replace('url', '')
-            target_price_key = f'price{product_id}'
-            class_name_key = f'class_name{product_id}'
-            if target_price_key in data and class_name_key in data:
-                products[value] = (float(data[target_price_key]), data[class_name_key])
-    logging.info(f"Received products: {products}")
+    try:
+        excel_file = request.files['excelFile']
+        if excel_file:
+            df = pd.read_excel(excel_file)
 
-    thread = Thread(target=monitor_prices, args=(products,))
-    thread.start()
+            products = {}
+            for index, row in df.iterrows():
+                url = row['URL']
+                class_name = row['Class Name']
+                target_price = row['Target Price']
+                products[url] = (target_price, class_name)
 
-    return jsonify({'status': 'success', 'message': 'Products submitted successfully!'})
+            logging.info(f"Received products: {products}")
+
+            thread = Thread(target=monitor_prices, args=(products,))
+            thread.start()
+
+            return jsonify({'status': 'success', 'message': 'Products submitted successfully!'})
+        else:
+            return jsonify({'status': 'error', 'message': 'No file uploaded.'})
+
+    except Exception as e:
+        logging.error(f"Error processing Excel file: {e}")
+        return jsonify({'status': 'error', 'message': f'Error processing Excel file: {str(e)}'})
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
