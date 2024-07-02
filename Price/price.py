@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Twilio credentials (replace with your own)
 account_sid = 'AC05136ad9c326713a1cf44ead0277afb0'
-auth_token = 'a5fc6f0c98c02ad68998145a4473a19f'
+auth_token = 'df4299aa497ffb4f6efa4f4511af96e1'
 twilio_phone_number = '+14155238886'
 destination_phone_number = '+917002743716'
 
