@@ -1,3 +1,4 @@
+
 from flask import Flask, request, jsonify, render_template
 import pandas as pd
 from google.oauth2.service_account import Credentials
@@ -17,7 +18,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Twilio credentials (replace with your own)
 account_sid = 'AC05136ad9c326713a1cf44ead0277afb0'
-auth_token = '23102a362d7def7506f331470791d8b0'
+auth_token = 'a5fc6f0c98c02ad68998145a4473a19f'
 twilio_phone_number = '+14155238886'
 destination_phone_number = '+917002743716'
 
@@ -205,5 +206,6 @@ def submit():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
