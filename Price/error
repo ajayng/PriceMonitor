@@ -1,1 +1,75 @@
 - An unexpected error occurred: ('invalid_grant: Invalid JWT Signature.', {'error': 'invalid_grant', 'error_description': 'Invalid JWT Signature.'})
+
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+import logging
+
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+SHEET_ID = '1PRIZwO6eG3aZtniP8AY_7ZCa5B0HxuJKb3EOi2leNUU'  # Replace with your Google Sheet ID
+
+def google_sheets_service():
+    try:
+        creds = Credentials.from_service_account_file('credentials.json', scopes=SCOPES)
+        service = build('sheets', 'v4', credentials=creds)
+        return service
+    except Exception as e:
+        logging.error(f"Error creating Google Sheets service: {e}")
+        return None
+
+def append_to_google_sheet(product_url, timestamp, price):
+    service = google_sheets_service()
+    if service is None:
+        logging.error("Google Sheets service initialization failed.")
+        return
+
+    sheet = service.spreadsheets()
+    sheet_name = generate_sheet_name(product_url)
+
+    # Check if the sheet for the product exists, create if not
+    sheet_metadata = sheet.get(spreadsheetId=SHEET_ID).execute()
+    sheets = sheet_metadata.get('sheets', '')
+    sheet_titles = [s['properties']['title'] for s in sheets]
+
+    if sheet_name not in sheet_titles:
+        requests = [
+            {
+                'addSheet': {
+                    'properties': {
+                        'title': sheet_name
+                    }
+                }
+            }
+        ]
+        body = {
+            'requests': requests
+        }
+        sheet.batchUpdate(spreadsheetId=SHEET_ID, body=body).execute()
+        header_values = [['Timestamp', 'Current Price']]
+        body = {
+            'values': header_values
+        }
+        range_ = f"{sheet_name}!A1:B1"
+        sheet.values().append(
+            spreadsheetId=SHEET_ID,
+            range=range_,
+            valueInputOption='USER_ENTERED',
+            insertDataOption='INSERT_ROWS',
+            body=body
+        ).execute()
+
+    # Append the data
+    range_ = f"{sheet_name}!A:B"
+    body = {
+        'values': [[timestamp, price]]
+    }
+    request = sheet.values().append(
+        spreadsheetId=SHEET_ID,
+        range=range_,
+        valueInputOption='USER_ENTERED',
+        insertDataOption='INSERT_ROWS',
+        body=body
+    )
+    response = request.execute()
+    logging.info(f"Google Sheets API response: {response}")
+
+# Example of the rest of your existing functions and routes would follow...
