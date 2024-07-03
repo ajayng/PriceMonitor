@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "acoustic-gizmo-427520-f9",
+  "private_key_id": "a5e71b27d7eb5342ef016dbd97372d5cd16d66c3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0SmjYNpys4OGT\nEJI6Y9I/yZL0YGD/9RRA3yTI2YiHa7wECIAhmIHR0umDeGfk8C0zboS4pkZL4Rpq\n4SHZTZXGZ2jjrfIZL18Lr1EOED7DR2fDve9lDl+zjyMJdMr7p5nIscnjVVwSRytY\nywP6WftGLRfHtCdoFpc7n4gaEZTUKlx07lcpKzsB+G0RCMNHoDLPi2bEXmk+u8wM\nANAVdHDST+lhLoYzNSaeATOiZrRUobzqeXtWLzM20La2A3t5qONINuxYLramGcmN\nPlGqRtTgIzMz8fzxaRhC7mhI2Ods2vuyNbrr/qcnKm1ppDyf7RPu0BJMvH74i0Hh\nkxf8S+/dAgMBAAECggEAAKgoe7Yhb9HB/AIsMqNlLXVYMtCoSjzDJ8yq239ft0Wl\nfYWxTRTFalBvtd3L0fNBLCsZ+u1Z8zBt8KvT0GpG1OHKH3oiCrdsI4E/L//dLdWD\nn1XArTTo0YmRWc8qo5Swi928zY3oE1NXWFAeaX/YgdNGyU/B8f9qi/veFz+Xpmun\n4HwkXlsKq9yjrc7VjpHmDCZ/0ot9CwcM+i0CXRim2akV6LxLrTwD9+PGCGZTrKOp\nYQ+wq6FUYlcWTuqZneUwGqDFg2wN+YDDLMFjyp9kVIwp1OWo7ZJy/Y8pt75BqlKO\n6MnEry307mnODCPb9Yqs/ZhPE3s4Bx0uZnYh6Qy0uQKBgQD4f7UURjZ4Mv8r8Q/7\n6HkU5SCfTpSoe1MEFQFZvtE8cOrXCTP9pF+eaCDdgi7FXlnz4DAx8bBhsS3o8aiu\nu3ygJPx9PUP/RObK/xqK6jsDo5u8oOybAvfCDLmTsZpESwJ/Mn2jVHRrU/RMGrV/\ncKHVpKMvVCCryEj5qXNnETl4uQKBgQC5u55XBQza5NEXHT/IgRmBNGooyyBuUaJq\n0Cz/7IIN1Gvzp7tX7VQUkGGq/cOyZQNN32Wwice45Hrgf1CCJmSw6xMfEOJrVmvW\noJto9BLda1fP8qld2HuYlyBYqZyEzVSlxXxAY5LceVYcSfCmYZT1zMDTrab5TS4N\nLv1ddqKWRQKBgQCXiWFGfM6onAippjZmGs0Dpfovy76xw4rLWXfaX5e+8Oj0uwL+\ncOdydPNdwQ5+g1v9cUBSpJ035dEmVX/VFjYYfpWOVfcKSt0m+0wXXGEihfnpnITM\nvpGRvyrH2y1E6i0anhKpsE3SSX8Xjc4Saf/2hZCRww6tUtTVkrTyLDnM2QKBgD7V\n9q/CCaNUnliPkLCo3JQVw4ShlAs+mxA/9blvrmA3aX45VOxeYn/CiQhsafTEr+V8\nms6rDmLDCb9B01701kP0g7eS4sclqb4m/+z2Bhva4Q59LkeNoeLx3gOg/k7/mI+s\nzGiMR3dHpZZUfZIMmXS/HM2Ahmj5b4cOSrGAHWlxAoGAFLko5+eWpI5vGgkVxNNZ\n4FHoy5gteSfTnT/+CIVS2R5/oE1eyyuQwXlVheE0QBe8JTgAx7DY2fFTWcnSXOxb\nJ+axl21ClwE596ItdXCmbqM6TBKaFlHCeNUNDH2p3Z4MzUGZxsuiz1l2Q6aNM7Gk\nsfvz8/syO9bmHfEXhX9veTU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "anjalithapa@acoustic-gizmo-427520-f9.iam.gserviceaccount.com",
+  "client_id": "104456830362791612668",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/anjalithapa%40acoustic-gizmo-427520-f9.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
